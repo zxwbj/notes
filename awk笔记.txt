@@ -5,7 +5,7 @@ awk '/xyz/, 0' File
 awk '/./' File
 
 3、打印文本的前10行
-awk '{print; if(10 == NR) exit}' File
+awk '{ print; if(10 == NR) exit }' File
 
 4、模拟 tail -1 的效果
 awk 'END { print }' File
