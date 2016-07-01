@@ -1,0 +1,17 @@
+1、显示从模式匹配的行到最后模式匹配的行
+awk '/xyz/, 0' File
+
+2、过滤文本中的空行
+awk '/./' File
+
+3、打印文本的前10行
+awk '{ print; if(10 == NR) exit }' File
+
+4、模拟 tail -1 的效果
+awk 'END { print }' File
+
+5、打印文本的总行数
+awk 'END { print NR }' File
+
+6、查找含有root关键字的行
+awk '/[Rr]oot/' File
