@@ -1,5 +1,10 @@
 1、显示从模式匹配的行到最后模式匹配的行
 awk "/xyz/, 0" File
+awk "/xyz/,/*/" File
+
+sed -n "/xyz/,//p" File
+sed -n '/xyz/,$p' File		# 此方法只能使用单引号，若使用双引号会报错
+sed '/xyz/,$!d' File		# 同上
 
 2、过滤文本中的空行
 awk "/./" File
