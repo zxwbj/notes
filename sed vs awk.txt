@@ -1,0 +1,56 @@
+一、将文本中每一行后面增加一个空行
+
+awk '{ print $0 "\n" }' File
+sed 'G' File
+	
+二、将文本中每一行后面增加一个空行，有且只有一个空行
+
+awk '!/^$/ { printf("$s\n\n", $0) }' File
+sed '/^$/d;G' File
+
+三、删除文本中的所有偶数行
+
+awk '0 != NR%2 { print $0 }' File
+sed 'n;d' File
+
+四、将文本中的内容倒序显示，模拟 tac 的功能
+
+awk '{ a[i++] = $0 } END { for(j=i-1; j>=0; --j) print a[j] }' File
+sed '1!G;h;$id' File
+
+五、将文本进行左对齐
+
+awk '{ sub(/^[ \t]+/, ""); print $0 }' File
+sed 's/^[ \t]*//' File
+
+六、将文本中每行结尾的空白字符、制表符删除
+
+awk '{ sub(/[ \t]+$/; ""); print $0 }' File
+sed 's/[ \t]*$//' File
+
+七、将文本中的两行连城一行
+
+awk '{ f = !f; if(f) printf("%s", $0); else printf(" %s\n", $0) }' File
+sed '$!N;s/\n//' File
+
+八、删除文本中所有的空行
+
+awk '/^$/d' File
+sed '{ if(!match($0, /^$/)) print }' File
+
+九、将文本中的 aaa 替换为 nnn
+
+awk '{ if(/aaa/) gsub(/aaa/, "nnn"); print }' File
+sed '/aaa/s/aaa/nnn/' File
+
+十、打印匹配模式的上一行
+
+sed -n '/aaa/{g;1!p;};h' File
+awk '/aaa/{ print a }{ a = $0 }' File
+
+十一、删除文本中的重复行，只保留一行
+
+sed '$!N; /^\(.*\)\n\1$/!P; D' File			# 删除相邻的重复行；可与 sort 等结合使用
+awk '!a[$0]++' File
+awk '!/./ || !a[$0]++' File					# 不处理空白行？
+awk '!NF || !a[$0]++'  File					# 同上
