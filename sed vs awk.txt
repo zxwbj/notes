@@ -31,8 +31,9 @@ sed 's/[ \t]*$//' File
 七、将文本中的两行连城一行
 
 awk '{ f = !f; if(f) printf("%s", $0); else printf("%s\n", $0) }' File
-awk '{ if(1 == NR%2 printf("%s", %0) else printf("%s\n", $0)) }' File
-sed '$!N;s/\n//' File
+awk '{ if(1 == NR%2) printf("%s", $0); else printf("%s\n", $0) }' File
+awk '{ if(0 == NR%2) $(NF+1) = "\n"; printf("%s", $0) }' File
+sed '$!N;s/\n//' File	# 若文本总行数为偶数，此种方法效果最好，上面三种方法会在最后一行之后加上"\n"
 
 八、删除文本中所有的空行
 
