@@ -1,46 +1,46 @@
 1、删除文件中所有的数字
-sed "s/[[:digit:]]\+//g" File
+sed 's/[[:digit:]]\+//g' File
 
 2、显示奇数行
-sed -n "1~2p" File
+sed -n '1~2p' File
 
 3、删除文中的最后两行
-sed "N;$!P;$!D;$d" File
+sed 'N;$!P;$!D;$d' File
 
 4、删除文中的空行
-sed "/./!d" File
-sed -n "/./p" File
-sed "/^$/d" File
+sed '/./!d' File
+sed -n '/./p' File
+sed '/^$/d' File
 
 5、将abc.txt中匹配到的内容保存至文件file.txt中
-sed -n "/root/w file.txt" abc.txt
+sed -n '/root/w file.txt' abc.txt
 
 6、将文件abc.txt的内容读入到文件file.txt匹配的内容后
-sed "/root/r abc.txt" file.txt
+sed '/root/r abc.txt' file.txt
 
 7、打印匹配到的内容，显示行号
-sed -n "/root/{=;p}" File
+sed -n '/root/{=;p}' File
 
 8、删除匹配到的行的下一行
-sed -n "/abc/{n;d}" File
+sed -n '/abc/{n;d}' File
 
 9、删除匹配到的行和下一行
-sed -n "/abc/{N;d}" File
+sed -n '/abc/{N;d}' File
 
 10、删除文件每行中的第一个字符
-sed -n "s/^.//gp" File
+sed -n 's/^.//gp' File
 
 11、在匹配的行前增加一个空行
-sed "/abc/{x;p;x}" File
+sed '/abc/{x;p;x}' File
 
 12、统计文本的行数
-sed -n "$=" File
+sed -n '$=' File
 
 13、模拟 tail -1 的效果
-sed "$!d" File
+sed '$!d' File
 
 14、在原有的每行后添加一个空白行
-sed "G" File
+sed 'G' File
 
 15、逆序显示文本内容
-sed "1!G;h;$!d" File
+sed '1!G;h;$!d' File
