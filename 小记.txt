@@ -1,0 +1,34 @@
+
+1、可以 应用getline函数在awk的BEGIN部分获取文本的总行数；
+
+这样，再输出文本的最后几行（比如最后一行、最后两行等）时，就不必通过数组缓存整个文本文件了。
+
+例如，下面的方法可实现输入文本的最后两行：
+
+awk 'BEGIN{ while((getline < "test.txt") > 0) ++max } NR==max-1||NR==max { print } END { print "max=" max }' test.txt
+
+注意 BEGIN 部分的重定向！！
+
+将上述方法稍加改造，即可实现删除文本最后两行之功能：NR < max-1 { print }
+
+
+以下方法只执行 END 部分的输出操作，中间部分不产生任何输出，原因待确定（应该是getline函数的问题）：
+awk 'BEGIN{ while(getline > 0) ++max } NR==max-1||NR==max { print } END { print "max=" max }' test.txt
+
+
+2、输出文本的最后几行，还有其他比较巧妙的方法，详见本目录某文件内笔记；
+
+3、使用getline函数需要注意细节，以免用错
+
+4、实践发现，以下方法也可以实现输出文本最后两行之功能：
+#!/bin/awk -f
+
+                {
+                        getline d
+                        x = $0 "\n" d
+                        y = d "\n" $0
+                }
+END             {
+                        if(0 == NR % 2) print x
+                        else            print y
+                }

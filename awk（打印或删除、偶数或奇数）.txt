@@ -1,0 +1,12 @@
+1、删除偶数行（打印奇数行）
+awk '1 == NR%2 { print $0 }' filename
+awk '{ if(0 == NR%2) next; print $0 }' filename
+awk '{ f = !f; if(f) print $0 }' filename
+awk '{ getline tmp; print $0 }' filename
+
+2、删除奇数行（打印偶数行）
+awk '0 == NR%2 { print $0 }' filename
+awk '{ if(1 == NR%2) next; print $0 }' filename
+awk '{ if(f) print $0; f = !f }' filename
+awk '{ if(getline tmp > 0) print tmp }' filename
+awk '{ if(getline > 0) print $0 }' filename
